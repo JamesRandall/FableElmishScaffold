@@ -155,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       let restFsPath = undefined;
       if (templateSet.rest) {
-        const restFs = templateSet.state(properties);
+        const restFs = templateSet.rest(properties);
         restFsPath = path.join(operationFolder, "Rest.fs");
         fs.writeFileSync(restFsPath, restFs);
       }

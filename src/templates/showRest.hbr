@@ -8,5 +8,5 @@ let get{{{entityName}}} user =
 
     do! Promise.sleep 500
 
-    return Get{{{entityName}}}.Success result
+    return Get{{{entityName}}}Res.Success result
   }
