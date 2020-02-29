@@ -48,8 +48,23 @@ interface ITemplateProperties {
   entityName: string
 }
 
+const getRootFolder = () => window.activeTextEditor ? path.dirname(window.activeTextEditor?.document.fileName) : vscode.workspace.rootPath!;
+const getEjectedTemplatePath = () => {
+  
+}
+
 const loadTemplates = (context: vscode.ExtensionContext): ITemplates => {
-  const templatesRootPath = path.join(context.extensionPath, 'src', 'templates');
+  let templatesRootPath = path.join(context.extensionPath, 'src', 'templates');
+  const fsproj = locateFsproject(getRootFolder());
+  if (fsproj) {
+    const fsProj = locateFsproject(getRootFolder());
+    if (fsProj) {
+      const destPath = path.join(path.dirname(fsProj), ".fable-elmish-templates");
+      if (fs.existsSync(destPath)) {
+        templatesRootPath = destPath;
+      }
+    }
+  }
   return {
     index: {
       types: handlebars.compile(fs.readFileSync(path.join(templatesRootPath, 'indexTypes.hbr')).toString()),
@@ -107,12 +122,28 @@ export function activate(context: vscode.ExtensionContext) {
   // This line of code will only be executed once when your extension is activated
   console.log('Congratulations, your extension "fable-elmish-generator" is now active!');
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand('extension.generateFullScaffold', async () => {
+  let ejectScaffoldTemplates = vscode.commands.registerCommand('extension.ejectScaffoldTemplates', async () => {
+    const fsProj = locateFsproject(getRootFolder());
+    if (!fsProj) return;
+    const destPath = path.join(path.dirname(fsProj), ".fable-elmish-templates");
+    if (fs.existsSync(destPath))
+    {
+      const result = showYesNo("Overwrite existing ejected templates?");
+      if (!result) return;
+    }
+    else
+    {
+      fs.mkdirSync(destPath);
+    }
+    
+    const templatesRootPath = path.join(context.extensionPath, 'src', 'templates');
+    const files = fs.readdirSync(templatesRootPath).filter(f => f.toLowerCase().endsWith(".hbr"));
+    files.forEach(f => fs.copyFileSync(path.join(templatesRootPath, f), path.join(destPath, f)));
+  });
+  
+  let generateFullScaffold = vscode.commands.registerCommand('extension.generateFullScaffold', async () => {
     const templates = loadTemplates(context);
-    const rootFolder = window.activeTextEditor ? path.dirname(window.activeTextEditor?.document.fileName) : vscode.workspace.rootPath!;
+    const rootFolder = getRootFolder();
     const fsProj = locateFsproject(rootFolder);
 
     if (fsProj) {
@@ -200,7 +231,8 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(generateFullScaffold);
+  context.subscriptions.push(ejectScaffoldTemplates);
 }
 
 // this method is called when your extension is deactivated
