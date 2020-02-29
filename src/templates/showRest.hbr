@@ -1,0 +1,12 @@
+module {{{rootNamespace}}}.Show.Rest
+
+open Types
+
+let get{{{entityName}}} user =
+  promise {
+    let result = { Id = "1" ; AProperty = "Some item" }
+
+    do! Promise.sleep 500
+
+    return Get{{{entityName}}}.Success result
+  }

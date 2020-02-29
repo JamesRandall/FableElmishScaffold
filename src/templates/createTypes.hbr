@@ -1,0 +1,14 @@
+module {{{rootNamespace}}}.Create.Types
+
+type Model =
+  { AProperty: string // your properties here
+  }
+
+  static member Empty id =
+    { AProperty = ""
+    }
+
+type Msg =
+  | ChangeAProperty of string
+  | Submit
+  

@@ -1,0 +1,22 @@
+module {{{rootNamespace}}}.Show.State
+
+open Elmish
+open Types
+open Browser
+
+let init id =
+  Model.Empty id , Cmd.OfFunc.result (Get{{{entityName}}} id)
+
+let update user msg model =
+  match msg with
+  | Get{{{entityName}}} id ->
+      model, Cmd.OfPromise.either Rest.get{{{entityName}}} id (Get{{{entityName}}}Res.Success >> Get{{{entityName}}}Result) (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
+
+  | Get{{{entityName}}}Result result ->
+      match result with
+      | Get{{{entityName}}}Res.Success item ->
+          item, Cmd.none
+      | Get{{{entityName}}}Res.Error error ->
+          console.error(error)
+          // Handle your error - redirect to error page etc.
+          model, Cmd.none  

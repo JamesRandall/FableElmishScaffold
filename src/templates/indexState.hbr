@@ -1,0 +1,22 @@
+module {{{rootNamespace}}}.Index.State
+
+open Elmish
+open Types
+open Browser
+
+let init () =
+  Model.Empty, Cmd.OfFunc.result Get{{{entityName}}}s
+
+let update user msg model =
+  match msg with
+  | Get{{{entityName}}}s ->
+      model, Cmd.OfPromise.either (Rest.get{{{entityName}}}s user) Get{{{entityName}}}s (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
+  
+  | Get{{{entityName}}}sResult result ->
+      match result with
+      | Get{{{entityName}}}sRes.Success items ->
+        { model with Items = items }, Cmd.none
+
+      | Get{{{entityName}}}sRes.Error error ->
+        console.error(error)
+        model, Cmd.none

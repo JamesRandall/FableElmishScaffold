@@ -1,0 +1,22 @@
+module {{{rootNamespace}}}.Index.Types
+
+type Item =
+  { Id: int
+    Title: string
+  }
+
+type Model =
+  { Items: Item list
+  }
+
+  static member Empty =
+    { Items = []
+    }
+
+type Get{{{entityName}}}sRes =
+  | Success of Item list
+  | Error of exn
+
+type Msg =
+  | Get{{{entityName}}}s
+  | Get{{{entityName}}}sResult of Get{{{entityName}}}sRes

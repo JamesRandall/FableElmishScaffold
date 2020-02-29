@@ -1,0 +1,20 @@
+module {{{rootNamespace}}}.Show.Types
+
+type Model =
+  { Id: int
+    AProperty: string // your properties here
+  }
+
+  static member Empty id =
+    { Id = id
+      AProperty = ""
+    }
+
+type Get{{{entityName}}}Res =
+  | Success of Model
+  | Error of exn
+
+type Msg =
+  | Get{{{entityName}}} of int
+  | Get{{{entityName}}}Result of Get{{{entityName}}}Res  
+  

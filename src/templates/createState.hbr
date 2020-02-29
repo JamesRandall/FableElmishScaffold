@@ -1,0 +1,11 @@
+module {{{rootNamespace}}}.Create.State
+
+open Elmish
+open Types
+
+let init _ =
+  Model.Empty, Cmd.none
+
+let update user msg model =
+  | ChangeAProperty newValue -> { model with AProperty = newValue }, Cmd.none
+  | Submit -> model, Cmd.none
