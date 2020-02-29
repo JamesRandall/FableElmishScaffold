@@ -149,7 +149,16 @@ export function activate(context: vscode.ExtensionContext) {
       const typeFsPath = path.join(operationFolder, "Types.fs");
       fs.writeFileSync(typeFsPath, typeFs);
 
-      const stateFs = templateSet.
+      const stateFs = templateSet.state(properties);
+      const stateFsPath = path.join(operationFolder, "State.fs");
+      fs.writeFileSync(stateFsPath, stateFs);
+
+      let restFsPath = undefined;
+      if (templateSet.rest) {
+        const restFs = templateSet.state(properties);
+        restFsPath = path.join(operationFolder, "Rest.fs");
+        fs.writeFileSync(restFsPath, restFs);
+      }
 
       const viewFs = templateSet.view(properties);
       const viewFsPath = path.join(operationFolder, "View.fs");
@@ -158,6 +167,10 @@ export function activate(context: vscode.ExtensionContext) {
       if (fsProj) {
         // order is important here - has to be types, rest, state, view
         itemGroupContent.push(path.relative(path.dirname(fsProj), typeFsPath));
+        if (restFsPath) {
+          itemGroupContent.push(path.relative(path.dirname(fsProj), restFsPath));
+        }
+        itemGroupContent.push(path.relative(path.dirname(fsProj), stateFsPath));
         itemGroupContent.push(path.relative(path.dirname(fsProj), viewFsPath));
       }
     });
