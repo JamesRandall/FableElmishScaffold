@@ -1,4 +1,4 @@
-module {{{rootNamespace}}}.{{{operation}}}.View
+module {{{rootNamespace}}}.Update.View
 
 open Elmish
 open Elmish.React

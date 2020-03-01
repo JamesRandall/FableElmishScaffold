@@ -20,17 +20,13 @@ export interface ITemplates {
   show: IOperations
   create: IOperations
   update: IOperations
-}
-
-export interface ITemplateProperties {
-  rootNamespace: string
-  operation: string
-  entityName: string
+  dispatcher: IOperations
 }
 
 export const getRootFolder = () => window.activeTextEditor ? path.dirname(window.activeTextEditor?.document.fileName) : vscode.workspace.rootPath!;
 
-export const operations = [ 'index', 'show', 'create', 'update' ];
+// dispatcher must come at the end
+export const operations = [ 'index', 'show', 'create', 'update', 'dispatcher' ];
 
 export const locateFsproject = (fromPath: string): string | undefined => {
   let fsproj = undefined;

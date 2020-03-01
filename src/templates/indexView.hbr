@@ -1,0 +1,11 @@
+module {{{rootNamespace}}}.Index.View
+
+open Elmish
+open Elmish.React
+open Fable.React
+open Fable.React.Props
+
+let root user model dispatch =
+    div [] [
+        str "{{{operation}}} for {{{entityName}}}"
+    ]

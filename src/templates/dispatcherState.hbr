@@ -1,0 +1,54 @@
+module {{{rootNamespace}}}.Dispatcher.State
+
+open Elmish
+open Types
+open Fable.Core
+
+let init (page: Router.{{{entityName}}}Page) =
+  let model = { Model.Empty with CurrentPage = page }
+  match page with
+  {{#if hasIndex}}| Router.{{{entityName}}}Page.Index ->
+      let (subModel, subCmd) = {{{entityName}}}.Index.State.init ()
+      { model with IndexModel = Some subModel }, Cmd.map IndexMsg subCmd
+  {{/if}}
+
+  {{#if hasShow}}| Router.{{{entityName}}}Page.Show id ->
+      let (subModel, subCmd) = {{{entityName}}}.Show.State.init id
+      { model with ShowModel = Some subModel }, Cmd.map ShowMsg subCmd
+  {{/if}}
+
+  {{#if hasCreate}}| Router.{{{entityName}}}Page.Create ->
+      let (subModel, subCmd) = {{{entityName}}}.Show.State.init ()
+      { model with CreateModel = Some subModel }, Cmd.map CreateMsg subCmd
+  {{/if}}
+  
+  {{#if hasUpdate}}| Router.{{{entityName}}}Page.Update id ->
+      let (subModel, subCmd) = {{{entityName}}}.Update.State.init id
+      { model with UpdateModel = Some subModel }, Cmd.map UpdateMsg subCmd
+  {{/if}}
+
+let update user msg (model: Model) =
+  match msg, model with
+  {{#if hasIndex}}| IndexMsg msg, { IndexModel = Some extractedModel } ->
+    let (subModel, subCmd) = {{entityName}}.Index.State.update msg extractedModel
+    { model with IndexModel = Some subModel }, Cmd.map IndexMsg subCmd
+  {{/if}}
+
+  {{#if hasShow}}| ShowMsg msg, { ShowModel = Some extractedModel } ->
+    let (subModel, subCmd) = {{entityName}}.Show.State.update msg extractedModel
+    { model with ShowModel = Some subModel }, Cmd.map ShowMsg subCmd
+  {{/if}}
+
+  {{#if hasCreate}}| CreateMsg msg, { CreateModel = Some extractedModel } ->
+    let (subModel, subCmd) = {{entityName}}.Create.State.update msg extractedModel
+    { model with CreateModel = Some subModel }, Cmd.map CreateMsg subCmd
+  {{/if}}
+
+  {{#if hasUpdate}}| UpdateMsg msg, { UpdateModel = Some extractedModel } ->
+    let (subModel, subCmd) = {{entityName}}.Update.State.update msg extractedModel
+    { model with UpdateModel = Some subModel }, Cmd.map UpdateMsg subCmd
+  {{/if}}
+
+  | _ ->
+    JS.console.log ("[{{{entityName}}}.Dispatcher.State] Discarded message")
+    model, Cmd.none

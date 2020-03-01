@@ -1,0 +1,23 @@
+module {{{rootNamespace}}}.Dispatcher.Types
+
+type Model =
+  { CurrentPage: Router.{{{entityName}}}Page
+    {{#if hasIndex}}IndexModel: {{{entityName}}}.Index.Types.Model option{{/if}}
+    {{#if hasShow}}ShowModel: {{{entityName}}}.Show.Types.Model option{{/if}}
+    {{#if hasCreate}}CreateModel: {{{entityName}}}.Create.Types.Model option{{/if}}
+    {{#if hasUpdate}}UpdateModel: {{{entityName}}}.Update.Types.Model option{{/if}}
+  }
+
+  static member Empty =
+    { CurrentPage = Router.{{entityName}}Page.Index
+      {{#if hasIndex}}IndexModel = None{{/if}}
+      {{#if hasShow}}ShowModel = None{{/if}}
+      {{#if hasCreate}}CreateModel = None{{/if}}
+      {{#if hasUpdate}}UpdateModel = None{{/if}}
+    }
+
+type Msg =
+  {{#if hasIndex}}| IndexMsg of {{{entityName}}}.Index.Types.Msg{{/if}}
+  {{#if hasShow}}| ShowMsg of {{{entityName}}}.Show.Types.Msg{{/if}}
+  {{#if hasCreate}}| CreateMsg of {{{entityName}}}.Create.Types.Msg{{/if}}
+  {{#if hasUpdate}}| UpdateMsg of {{{entityName}}}.Update.Types.Msg{{/if}}

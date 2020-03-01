@@ -6,6 +6,16 @@ import * as handlebars from 'handlebars';
 
 import { locateFsproject, ITemplates, getRootFolder, operations, showYesNo } from './common';
 
+interface ITemplateProperties {
+  rootNamespace: string
+  operation: string
+  entityName: string,
+  hasIndex: boolean,
+  hasShow: boolean,
+  hasUpdate: boolean,
+  hasCreate: boolean
+}
+
 const showInputBox = async () => {
   const result = await window.showInputBox({
     value: '',
@@ -30,13 +40,13 @@ const loadTemplates = (context: vscode.ExtensionContext): ITemplates => {
     }
   }
 
-  const result : ITemplates = { index: { }, show: { }, create: { }, update: { } }
+  const result : ITemplates = { index: { }, show: { }, create: { }, update: { }, dispatcher: { } }
 
   operations.forEach(operation => {
     const typesPath = path.join(templatesRootPath, `${operation}Types.hbr`);
     const restPath = path.join(templatesRootPath, `${operation}Rest.hbr`);
     const statePath = path.join(templatesRootPath, `${operation}State.hbr`);
-    const viewPath = path.join(templatesRootPath, 'view.hbr');
+    const viewPath = path.join(templatesRootPath, `${operation}View.hbr`);
     result[operation] = {
       types: handlebars.compile(fs.readFileSync(typesPath).toString()),
       rest: fs.existsSync(restPath) ? handlebars.compile(fs.readFileSync(restPath).toString()) : undefined,
@@ -58,12 +68,12 @@ export const command = async (context: vscode.ExtensionContext) => {
     }
 
     const entityName = await showInputBox();
-    const activeOperations = [];
+    const activeOperations : string[] = [];
     if (!entityName) return;
 
     for (let operationIndex = 0; operationIndex < operations.length; operationIndex++) {
-      const includeIndex = await showYesNo(`Scaffold ${operations[operationIndex]}`);
-      if (includeIndex === undefined) return; // cancelled
+      const includeOperation = await showYesNo(`Scaffold ${operations[operationIndex]}`);
+      if (includeOperation === undefined) return; // cancelled
       activeOperations.push(operations[operationIndex]);
     }
 
@@ -76,10 +86,14 @@ export const command = async (context: vscode.ExtensionContext) => {
       const operationAsPath = operation[0].toUpperCase() + operation.substring(1);
       const operationFolder = path.join(areaFolder, operationAsPath);
       fs.mkdirSync(operationFolder);
-      const properties = {
+      const properties : ITemplateProperties = {
         rootNamespace: entityName,
         operation: operation,
-        entityName: entityName
+        entityName: entityName,
+        hasIndex: activeOperations.indexOf('index') > -1,
+        hasShow: activeOperations.indexOf('show') > -1,
+        hasUpdate: activeOperations.indexOf('update') > -1,
+        hasCreate: activeOperations.indexOf('create') > -1
       };
 
       // order is important here - has to be types, rest, state, view
