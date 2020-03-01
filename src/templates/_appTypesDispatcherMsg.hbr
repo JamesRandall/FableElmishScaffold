@@ -1,1 +1,1 @@
-    | {{{entityName}}}DispatcherMsg of {{{entityType}}}.Dispatcher.Types.Msg
+    | {{{entityName}}}DispatcherMsg of {{{entityName}}}.Dispatcher.Types.Msg

@@ -5,7 +5,23 @@ open Elmish.React
 open Fable.React
 open Fable.React.Props
 
+open Types
+
 let root user model dispatch =
     div [] [
-        str "{{{operation}}} for {{{entityName}}}"
+      h1 [] [str "Product View"]
+      p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]
+      table [] [
+        tbody [] [
+          tr [] [
+            th [] [str "Id"]
+            td [] [str (sprintf "%o" model.Id)]            
+          ]
+          tr [] [
+            th [] [str "Value"]
+            td [] [str model.AProperty]
+          ]
+        ]
+      ]
     ]
+    

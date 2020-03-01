@@ -5,7 +5,31 @@ open Elmish.React
 open Fable.React
 open Fable.React.Props
 
+open Types
+
 let root user model dispatch =
     div [] [
-        str "{{{operation}}} for {{{entityName}}}"
+      h1 [] [str "{{{entityName}}} View"]
+      p [] [
+        a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Create)] [str "New"]
+      ]
+      table [] [
+        thead [] [
+          tr [] [
+            th [] []
+            th [] []
+            th [] [str "Id"]
+            th [] [str "Value"]
+          ]
+        ]
+        tbody [] (model.Items |> Seq.map (fun i ->
+          tr [] [
+            td [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Show i.Id)] [str "View"]]
+            td [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Update i.Id)] [str "Edit"]]
+            td [] [str (sprintf "%o" i.Id)]
+            td [] [str i.Title]
+          ])
+        )
+      ]
     ]
+    

@@ -28,6 +28,7 @@ interface ITemplates {
   _appStateUpdate: HandlebarsTemplateDelegate<any>
   _appStateUrlUpdate: HandlebarsTemplateDelegate<any>
   _appTypesDispatcherModel: HandlebarsTemplateDelegate<any>
+  _appTypesDispatcherModelInit: HandlebarsTemplateDelegate<any>
   _appTypesDispatcherMsg: HandlebarsTemplateDelegate<any>
 
   _routerPage: HandlebarsTemplateDelegate<any> 
@@ -39,10 +40,11 @@ interface ITemplates {
 interface ITemplateProperties {
   rootNamespace: string
   operation: string
-  entityName: string,
-  hasIndex: boolean,
-  hasShow: boolean,
-  hasUpdate: boolean,
+  camelEntityName: string
+  entityName: string
+  hasIndex: boolean
+  hasShow: boolean
+  hasUpdate: boolean
   hasCreate: boolean
 }
 
@@ -69,6 +71,7 @@ const loadTemplates = (context: vscode.ExtensionContext): ITemplates => {
   const appStateUrlUpdatePath = path.join(templatesRootPath, `_appStateUrlUpdate.hbr`);
   const appTypesDispatcherMsgPath = path.join(templatesRootPath, `_appTypesDispatcherMsg.hbr`);
   const appTypesDispatcherModelPath = path.join(templatesRootPath, `_appTypesDispatcherModel.hbr`);
+  const appTypesDispatcherModelInitPath = path.join(templatesRootPath, `_appTypesDispatcherModelInit.hbr`);
 
   const result: ITemplates = {
     index: {},
@@ -86,7 +89,8 @@ const loadTemplates = (context: vscode.ExtensionContext): ITemplates => {
     _appStateUpdate: handlebars.compile(fs.readFileSync(appStateUpdatePath).toString()),
     _appStateUrlUpdate: handlebars.compile(fs.readFileSync(appStateUrlUpdatePath).toString()),
     _appTypesDispatcherMsg: handlebars.compile(fs.readFileSync(appTypesDispatcherMsgPath).toString()),
-    _appTypesDispatcherModel: handlebars.compile(fs.readFileSync(appTypesDispatcherModelPath).toString())
+    _appTypesDispatcherModel: handlebars.compile(fs.readFileSync(appTypesDispatcherModelPath).toString()),
+    _appTypesDispatcherModelInit: handlebars.compile(fs.readFileSync(appTypesDispatcherModelInitPath).toString())
   }
 
   operations.forEach(operation => {
@@ -140,6 +144,7 @@ const updateRouterIfExists = async (context: vscode.ExtensionContext, templates:
     rootNamespace: entityName,
     operation: "router",
     entityName: entityName,
+    camelEntityName: entityName[0].toLowerCase() + entityName.substring(1),
     hasIndex: activeOperations.indexOf('index') > -1,
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
@@ -183,6 +188,7 @@ const updateAppIfExists = async (context: vscode.ExtensionContext, templates: IT
     rootNamespace: entityName,
     operation: "app",
     entityName: entityName,
+    camelEntityName: entityName[0].toLowerCase() + entityName.substring(1),
     hasIndex: activeOperations.indexOf('index') > -1,
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
@@ -194,12 +200,14 @@ const updateAppIfExists = async (context: vscode.ExtensionContext, templates: IT
   const appStateUrlUpdate = templates._appStateUrlUpdate(properties);
   const appTypesDispatcherMsg = templates._appTypesDispatcherMsg(properties);
   const appTypesDispatcherModel = templates._appTypesDispatcherModel(properties);
+  const appTypesDispatcherModelInit = templates._appTypesDispatcherModelInit(properties);
 
   await writeAndInsertAsset(appPath, "begin dispatcher rendering - do not remove", appRender);
   await writeAndInsertAsset(appStatePath, "begin dispatcher url update - do not remove", appStateUrlUpdate);
   await writeAndInsertAsset(appStatePath, "begin dispatcher update - do not remove", appStateUpdate);
   await writeAndInsertAsset(appTypesPath, "begin dispatcher messages - do not remove", appTypesDispatcherMsg);
   await writeAndInsertAsset(appTypesPath, "begin dispatcher models - do not remove", appTypesDispatcherModel);
+  await writeAndInsertAsset(appTypesPath, "begin dispatcher model initialisation - do not remove", appTypesDispatcherModelInit);
 }
 
 export const command = async (context: vscode.ExtensionContext) => {
@@ -233,6 +241,7 @@ export const command = async (context: vscode.ExtensionContext) => {
     const properties: ITemplateProperties = {
       rootNamespace: entityName,
       operation: operation,
+      camelEntityName: entityName[0].toLowerCase() + entityName.substring(1),
       entityName: entityName,
       hasIndex: activeOperations.indexOf('index') > -1,
       hasShow: activeOperations.indexOf('show') > -1,

@@ -12,7 +12,12 @@ type Model =
     // end dispatcher models - do not remove
   }
 
-  static member Empty = { CurrentPage = Router.Home ; Session = None }
+  static member Empty =
+    { CurrentPage = Router.Home
+      Session = None
+      // begin dispatcher model initialisation - do not remove
+      // end dispatcher model initialisation - do not remove
+    }
 
 type Msg =
   // begin dispatcher messages - do not remove
