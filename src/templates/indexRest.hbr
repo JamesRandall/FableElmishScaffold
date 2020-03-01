@@ -4,7 +4,7 @@ open Types
 
 let get{{{entityName}}}s user =
   promise {
-    let result = [{ Id = "1" ; Title = "Some item" }]
+    let result = [{ Id = 1 ; Title = "Some item" }]
 
     do! Promise.sleep 500
 
