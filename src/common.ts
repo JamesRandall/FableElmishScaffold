@@ -42,7 +42,7 @@ export async function showYesNo(placeholder: string) {
 }
 
 export const getTemplateRootPath = (context: vscode.ExtensionContext) => {
-  let templatesRootPath = path.join(context.extensionPath, 'src', 'templates');
+  let templatesRootPath = path.join(context.extensionPath, 'templates');
   const fsproj = locateFsproject(getRootFolder());
   if (fsproj) {
     const fsProj = locateFsproject(getRootFolder());

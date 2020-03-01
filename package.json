@@ -6,6 +6,7 @@
   "preview": true,
   "publisher": "jamesrandall",
   "repository": "https://github.com/JamesRandall/FableElmishScaffold",
+  "icon": "logo.png",
 	"engines": {
 		"vscode": "^1.42.0"
 	},

@@ -17,7 +17,7 @@ export const command = async (context: vscode.ExtensionContext) => {
     fs.mkdirSync(destPath);
   }
   
-  const templatesRootPath = path.join(context.extensionPath, 'src', 'templates');
+  const templatesRootPath = path.join(context.extensionPath, 'templates');
   const files = fs.readdirSync(templatesRootPath).filter(f => f.toLowerCase().endsWith(".hbr"));
   files.forEach(f => fs.copyFileSync(path.join(templatesRootPath, f), path.join(destPath, f)));
 };

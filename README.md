@@ -2,6 +2,8 @@
 
 This extension can help with the scaffolding out of applications based on Fable and the Elmish pattern. The code it generates is based on the [minimal](https://github.com/fable-compiler/fable2-samples/tree/master/minimal) sample that can be found in the [Fable  sample set](https://github.com/fable-compiler/fable2-samples).
 
+[Available on the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=jamesrandall.fable-elmish-generator&ssr=false)
+
 ## Features
 
 * Scaffold out a basic Fable application
