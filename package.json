@@ -12,7 +12,8 @@
 	],
 	"activationEvents": [
     "onCommand:extension.generateFullScaffold",
-    "onCommand:extension.ejectScaffoldTemplates"
+    "onCommand:extension.ejectScaffoldTemplates",
+    "onCommand:extension.scaffoldApplicationComponents"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -26,7 +27,12 @@
 				"command": "extension.ejectScaffoldTemplates",
         "title": "Eject Fable-Elmish Scaffold Templates",
         "when": "editorLangId == fsharp"
-			}
+      },
+      {
+        "command": "extension.scaffoldApplicationComponents",
+        "title": "Scaffold Fable-Elmish Application Components",
+        "when": "editorLandId == fsharp"
+      }
 		]
 	},
 	"scripts": {

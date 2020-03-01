@@ -1,0 +1,3 @@
+    | Router.{{{entityName}}} subPage ->
+      let (subModel, subCmd) = {{{entityName}}}.Dispatcher.State.init subPage
+      { model with {{{entityName}}}Dispatcher = Some subModel }, Cmd.map {{{entityName}}}DispatcherMsg subCmd

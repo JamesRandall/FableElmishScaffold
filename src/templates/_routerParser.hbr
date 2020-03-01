@@ -1,0 +1,4 @@
+      {{#if hasIndex}}map ({{{entityName}}}Page.Index |> {{{entityName}}}) (s "{{{entityName}}}"){{/if}}
+      {{#if hasShow}}map ({{{entityName}}}Page.Show >> {{{entityName}}}) (s "{{{entityName}}}" </> i32) {{/if}}
+      {{#if hasCreate}}map ({{{entityName}}}Page.Create |> {{{entityName}}}) (s "{{{entityName}}}" </> s "create"){{/if}}
+      {{#if hasUpdate}}map ({{{entityName}}}Page.Update >> {{{entityName}}}) (s "{{{entityName}}}" </> s "edit" </> i32) {{/if}}

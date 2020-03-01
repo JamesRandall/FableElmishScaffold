@@ -4,7 +4,7 @@ type Model =
   { AProperty: string // your properties here
   }
 
-  static member Empty id =
+  static member Empty =
     { AProperty = ""
     }
 

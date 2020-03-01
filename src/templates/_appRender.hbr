@@ -1,0 +1,3 @@
+  | { CurrentPage = Router.{{{entityName}}} _
+      {{{entityName}}}Dispatcher = Some extractedModel } ->
+      {{{entityName}}}.Dispatcher.View.root model.Session extractedModel ({{{entityName}}}DispatcherMsg >> dispatch)

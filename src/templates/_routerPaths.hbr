@@ -1,0 +1,6 @@
+    | {{{entityName}}} entityPage ->
+      match entityPage with
+      {{#if hasShow}}| {{{entityName}}}Page.Show id -> sprintf "#{{{entityName}}}/%s" ((box id).ToString()){{/if}}
+      {{#if hasCreate}}| {{{entityName}}}Page.Create -> "#{{{entityName}}}/create"{{/if}}
+      {{#if hasUpdate}}| {{{entityName}}}Page.Update id -> sprintf "#{{{entityName}}}/edit/%s" ((box id).ToString()){{/if}}
+      {{#if hasIndex}}| {{{entityName}}}Page.Index -> "#{{{entityName}}}"{{/if}}
