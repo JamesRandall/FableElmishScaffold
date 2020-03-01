@@ -1,9 +1,10 @@
 {
 	"name": "fable-elmish-generator",
-	"displayName": "fable-elmish-generator",
-	"description": "Creates boilerplate for a typical Fable Elmish application",
+	"displayName": "Fable Elmish Generator",
+	"description": "Scaffolds boilerplate for a typical Fable Elmish application",
 	"version": "0.0.1",
-	"publisher": "jamesrandall",
+  "publisher": "jamesrandall",
+  "repository": "https://github.com/JamesRandall/FableElmishScaffold",
 	"engines": {
 		"vscode": "^1.42.0"
 	},
