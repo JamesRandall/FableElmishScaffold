@@ -15,7 +15,7 @@ type Get{{{entityName}}}Res =
   | Error of exn
 
 type Msg =
-  | Get{{{entityName}}}
+  | Get{{{entityName}}} of int
   | Get{{{entityName}}}Result of Get{{{entityName}}}Res
   | ChangeAProperty of string
   | Submit

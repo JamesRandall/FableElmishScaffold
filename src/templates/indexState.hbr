@@ -10,7 +10,7 @@ let init () =
 let update user msg model =
   match msg with
   | Get{{{entityName}}}s ->
-      model, Cmd.OfPromise.either (Rest.get{{{entityName}}}s user) Get{{{entityName}}}s (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
+      model, Cmd.OfPromise.either Rest.get{{{entityName}}}s user Get{{{entityName}}}sResult (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
   
   | Get{{{entityName}}}sResult result ->
       match result with

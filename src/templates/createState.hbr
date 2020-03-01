@@ -7,5 +7,6 @@ let init _ =
   Model.Empty, Cmd.none
 
 let update user msg model =
+  match msg with
   | ChangeAProperty newValue -> { model with AProperty = newValue }, Cmd.none
   | Submit -> model, Cmd.none

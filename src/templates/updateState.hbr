@@ -1,4 +1,4 @@
-module {{{rootNamespace}}}.Show.State
+module {{{rootNamespace}}}.Update.State
 
 open Elmish
 open Types
@@ -10,7 +10,7 @@ let init id =
 let update user msg model =
   match msg with
   | Get{{{entityName}}} id ->
-      model, Cmd.OfPromise.either Rest.get{{{entityName}}} id (Get{{{entityName}}}Res.Success >> Get{{{entityName}}}Result) (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
+      model, Cmd.OfPromise.either Rest.get{{{entityName}}} id Get{{{entityName}}}Result (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
 
   | Get{{{entityName}}}Result result ->
       match result with
@@ -23,5 +23,5 @@ let update user msg model =
   | ChangeAProperty newValue ->
       { model with AProperty = newValue }, Cmd.none
   | Submit ->
-      console.log('Save your changes')
+      console.log "Save your changes"
       model, Cmd.none
