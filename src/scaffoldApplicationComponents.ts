@@ -15,6 +15,7 @@ const writeAndOpenAsset= async (path:string, content:string) => {
     const end = new vscode.Position(doc.lineCount-1, doc.lineAt(doc.lineCount-1).text.length);
     builder.replace(new vscode.Selection(begin, end), content);
   });
+  await doc.save();
 }
 
 export const command = async (context: vscode.ExtensionContext) => {
@@ -47,4 +48,6 @@ export const command = async (context: vscode.ExtensionContext) => {
     path.relative(path.dirname(fsProj), appStatePath),
     path.relative(path.dirname(fsProj), appPath)
   ]);
+
+  vscode.window.showInformationMessage("Now add the NuGet package Fable.Elmish.Browser");
 }

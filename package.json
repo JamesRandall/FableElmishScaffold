@@ -1,7 +1,7 @@
 {
 	"name": "fable-elmish-generator",
 	"displayName": "fable-elmish-generator",
-	"description": "Creates boilerplate areas for a typical Fable Elmish application",
+	"description": "Creates boilerplate for a typical Fable Elmish application",
 	"version": "0.0.1",
 	"publisher": "jamesrandall",
 	"engines": {

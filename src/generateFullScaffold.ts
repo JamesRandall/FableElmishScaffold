@@ -126,6 +126,8 @@ const writeAndInsertAsset= async (path:string, marker: string, content:string) =
     const end = new vscode.Position(doc.lineCount-1, doc.lineAt(doc.lineCount-1).text.length);
     builder.insert(new vscode.Position(foundLineNumber+1, 0), content);
   });
+
+  await doc.save();
 }
 
 const updateRouterIfExists = async (context: vscode.ExtensionContext, templates: ITemplates, entityName: string, activeOperations: string[]) => {

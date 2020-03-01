@@ -77,6 +77,8 @@ export const addToFsProj = async (fsProjPath: string, items: string[]) => {
     }
     lineNumber--;
   }
+
+  await projectDoc.save();
 }
 
 export const addToFsProjAfterRouter = async (fsProjPath: string, items: string[]) => {
@@ -104,5 +106,6 @@ export const addToFsProjAfterRouter = async (fsProjPath: string, items: string[]
       const position = new vscode.Position(foundLine + 1, 0);
       builder.insert(position, xmlOutput);
     });
+    await projectDoc.save();
   }
 }
