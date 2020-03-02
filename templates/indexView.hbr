@@ -8,6 +8,9 @@ open Fable.React.Props
 open Types
 
 let root context model dispatch =
+  match model.IsLoading with
+  | true -> div [] [str "Loading..."]
+  | false ->
     div [] [
       h1 [] [str "{{{entityName}}} View"]
       p [] [

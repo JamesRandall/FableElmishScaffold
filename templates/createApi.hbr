@@ -1,0 +1,9 @@
+module {{{rootNamespace}}}.Create.Api
+
+open Types
+
+let submit{{{entityName}}} context =
+  {{asyncBlock settings}} {
+    do! {{asyncSleep settings}} 1500
+    return Submit{{{entityName}}}Res.Success
+  }

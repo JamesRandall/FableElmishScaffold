@@ -1,20 +1,28 @@
 module {{{rootNamespace}}}.Show.Types
 
-type Model =
-  { Id: int
+type Item =
+  { Id: {{{settings.entityIdType}}}
     AProperty: string // your properties here
   }
 
+type Model =
+  { IsLoading: bool
+    Item: Item
+  }
+
   static member Empty id =
-    { Id = id
-      AProperty = ""
+    { IsLoading = true
+      Item = { 
+        Id = id
+        AProperty = ""
+      }
     }
 
 type Get{{{entityName}}}Res =
-  | Success of Model
+  | Success of Item
   | Error of exn
 
 type Msg =
-  | Get{{{entityName}}} of int
+  | Get{{{entityName}}} of {{{settings.entityIdType}}}
   | Get{{{entityName}}}Result of Get{{{entityName}}}Res  
   

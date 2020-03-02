@@ -1,4 +1,4 @@
       {{#if hasIndex}}map ({{{entityName}}}Page.Index |> {{{entityName}}}) (s "{{{camelEntityName}}}"){{/if}}
-      {{#if hasShow}}map ({{{entityName}}}Page.Show >> {{{entityName}}}) (s "{{{camelEntityName}}}" </> i32) {{/if}}
+      {{#if hasShow}}map ({{{entityName}}}Page.Show >> {{{entityName}}}) (s "{{{camelEntityName}}}" </> {{routerIdType settings}}) {{/if}}
       {{#if hasCreate}}map ({{{entityName}}}Page.Create |> {{{entityName}}}) (s "{{{camelEntityName}}}" </> s "create"){{/if}}
-      {{#if hasUpdate}}map ({{{entityName}}}Page.Update >> {{{entityName}}}) (s "{{{camelEntityName}}}" </> s "edit" </> i32) {{/if}}
+      {{#if hasUpdate}}map ({{{entityName}}}Page.Update >> {{{entityName}}}) (s "{{{camelEntityName}}}" </> s "edit" </> {{routerIdType settings}}) {{/if}}

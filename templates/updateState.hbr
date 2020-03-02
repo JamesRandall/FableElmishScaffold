@@ -10,18 +10,26 @@ let init id =
 let update context msg model =
   match msg with
   | Get{{{entityName}}} id ->
-      model, Cmd.{{ofCmd settings}}.either Api.get{{{entityName}}} id Get{{{entityName}}}Result (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
-
+      { model with IsLoading = true }, Cmd.{{ofCmd settings}}.either Api.get{{{entityName}}} id Get{{{entityName}}}Result (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
   | Get{{{entityName}}}Result result ->
       match result with
       | Get{{{entityName}}}Res.Success item ->
-          item, Cmd.none
+          { model with Item = item ; IsLoading = false }, Cmd.none
       | Get{{{entityName}}}Res.Error error ->
           console.error(error)
           // Handle your error - redirect to error page etc.
-          model, Cmd.none
+          { model with IsLoading = false }, Cmd.none
+  
   | ChangeAProperty newValue ->
-      { model with AProperty = newValue }, Cmd.none
-  | Submit ->
-      console.log "Save your changes"
-      model, Cmd.none
+      { model with Item = { model.Item with AProperty = newValue } }, Cmd.none
+  
+  | Submit{{{entityName}}} ->
+    { model with IsSaving = true }, Cmd.{{ofCmd settings}}.either Api.submit{{{entityName}}} id Submit{{{entityName}}}Result (Submit{{{entityName}}}Res.Error >> Submit{{{entityName}}}Result)
+  | Submit{{{entityName}}}Result result ->
+      match result with
+      | Submit{{{entityName}}}Res.Success ->
+          { model with IsSaving = false }, Cmd.none
+      | Submit{{{entityName}}}Res.Error error ->
+          console.error(error)
+          // Handle your error - redirect to error page etc.
+          { model with IsSaving = false }, Cmd.none

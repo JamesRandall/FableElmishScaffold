@@ -8,6 +8,9 @@ open Fable.React.Props
 open Types
 
 let root context model dispatch =
+  match model.IsLoading with
+  | true -> div [] [str "Loading"]
+  | false ->
     div [] [
       h1 [] [str "Product View"]
       p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]
@@ -15,11 +18,11 @@ let root context model dispatch =
         tbody [] [
           tr [] [
             th [] [str "Id"]
-            td [] [str (sprintf "%o" model.Id)]            
+            td [] [str (sprintf "%o" model.Item.Id)]            
           ]
           tr [] [
             th [] [str "Value"]
-            td [] [str model.AProperty]
+            td [] [str model.Item.AProperty]
           ]
         ]
       ]

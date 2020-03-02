@@ -2,7 +2,7 @@ module App.Types
 
 type Context =
   {
-    UserId : int
+    UserId : {{settings.userIdType}}
   }
 
 type Model =

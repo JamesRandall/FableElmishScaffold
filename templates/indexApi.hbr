@@ -6,7 +6,7 @@ let get{{{entityName}}}s context =
   {{asyncBlock settings}} {
     let result = [{ Id = 1 ; Title = "Some item" }]
 
-    do! {{asyncSleep settings}} 500
+    do! {{asyncSleep settings}} 1500
 
     return Get{{{entityName}}}sRes.Success result
   }

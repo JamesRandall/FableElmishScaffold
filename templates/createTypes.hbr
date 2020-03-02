@@ -1,14 +1,28 @@
 module {{{rootNamespace}}}.Create.Types
 
+type Item =
+  { AProperty: string
+  }
+
 type Model =
-  { AProperty: string // your properties here
+  { IsSaving: bool
+    Item: Item
   }
 
   static member Empty =
-    { AProperty = ""
+    {
+      IsSaving = true
+      Item = {
+        AProperty = ""
+      }
     }
+
+type Submit{{{entityName}}}Res =
+  | Success
+  | Error of exn
 
 type Msg =
   | ChangeAProperty of string
-  | Submit
+  | Submit{{{entityName}}}
+  | Submit{{{entityName}}}Result of Submit{{{entityName}}}Res
   

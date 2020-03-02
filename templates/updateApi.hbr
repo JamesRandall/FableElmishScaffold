@@ -6,7 +6,14 @@ let get{{{entityName}}} context =
   {{asyncBlock settings}} {
     let result = { Id = 1 ; AProperty = "Some item" }
 
-    do! {{asyncSleep settings}} 500
+    do! {{asyncSleep settings}} 1500
 
     return Get{{{entityName}}}Res.Success result
+  }
+
+let submit{{{entityName}}} context =
+  {{asyncBlock settings}} {
+    do! {{asyncSleep settings}} 1500
+
+    return Submit{{{entityName}}}Res.Success
   }

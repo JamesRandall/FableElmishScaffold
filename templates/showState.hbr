@@ -10,13 +10,13 @@ let init id =
 let update context msg model =
   match msg with
   | Get{{{entityName}}} id ->
-      model, Cmd.{{ofCmd settings}}.either Api.get{{{entityName}}} id Get{{{entityName}}}Result (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
+      { model with IsLoading = true }, Cmd.{{ofCmd settings}}.either Api.get{{{entityName}}} id Get{{{entityName}}}Result (Get{{{entityName}}}Res.Error >> Get{{{entityName}}}Result)
 
   | Get{{{entityName}}}Result result ->
       match result with
       | Get{{{entityName}}}Res.Success item ->
-          item, Cmd.none
+          { model with Item = item ; IsLoading = false }, Cmd.none
       | Get{{{entityName}}}Res.Error error ->
           console.error(error)
           // Handle your error - redirect to error page etc.
-          model, Cmd.none  
+          { model with IsLoading = false }, Cmd.none  

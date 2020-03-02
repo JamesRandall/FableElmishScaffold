@@ -23,7 +23,7 @@ You will also need to add the following NuGet package:
 
 Fable.Elmish.Browser
 
-Now to add a resource, for example routes to create, list, view and edit a Product entity run the command _Scaffold Fable-Elmish Entity_ and enter the entity name.
+Now to add a resource, for example routes to create, list, view and edit a Product entity run the command _Scaffold Fable-Elmish Resource_ and enter the resource name.
 
 This will create the resource, routing for it, boilerplate views, and Elmish message patterns.
 
@@ -36,6 +36,8 @@ Setings are described below:
 |Setting|Default|Description|
 |-------|-------|-----------|
 |asyncStyle|async|Possible values are async or promise and this causes the scaffolder to generate async or promise blocks as appropriate|
+|entityIdType|int|The type to use for entity ID properties in the scaffolded code. Can be int or string.|
+|userIdType|string|The type to use for user ID properties in the scaffolded code. Can be int or string.|
 
 ## Customising the Generated Code
 
@@ -46,6 +48,13 @@ To do this run the command _Eject Fable-Elmish Scaffold Templates_. This will pl
 When generating code the scaffolder will walk back up the folder tree from the location you are inserting the code and look for this folder. If it finds it it will use your custom templates, if it doesn't it will use the defaults. This allows you to use different templates in different parts of a solution.
 
 ## Release Notes
+
+### 0.0.5
+
+* Added support for different ID types in the generated code
+* State management and types around API calls now includes setting and unsetting an IsLoading property
+* Added messages around submission of create and update forms
+* Updated scaffolded views to reflect API calls in progress (loading, saving etc.)
 
 ### 0.0.4
 

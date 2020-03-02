@@ -2,7 +2,7 @@
 	"name": "fable-elmish-generator",
 	"displayName": "Fable Elmish Scaffolder",
 	"description": "Scaffolds boilerplate for a typical Fable Elmish application",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "preview": true,
   "publisher": "jamesrandall",
   "repository": "https://github.com/JamesRandall/FableElmishScaffold",
@@ -15,31 +15,31 @@
   ],
   "keywords": ["fsharp", "fable", "elmish"],
 	"activationEvents": [
-    "onCommand:extension.generateFullScaffold",
-    "onCommand:extension.ejectScaffoldTemplates",
-    "onCommand:extension.scaffoldApplicationComponents",
-    "onCommand:extension.exportSettings"
+    "onCommand:fable-elmish-scaffolder.generateFullScaffold",
+    "onCommand:fable-elmish-scaffolder.ejectScaffoldTemplates",
+    "onCommand:fable-elmish-scaffolder.scaffoldApplicationComponents",
+    "onCommand:fable-elmish-scaffolder.exportSettings"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.generateFullScaffold",
-        "title": "Scaffold Fable-Elmish Entity",
+				"command": "fable-elmish-scaffolder.generateFullScaffold",
+        "title": "Scaffold Fable-Elmish Resource",
         "when": "editorLangId == fsharp"
       },
       {
-				"command": "extension.ejectScaffoldTemplates",
+				"command": "fable-elmish-scaffolder.ejectScaffoldTemplates",
         "title": "Eject Fable-Elmish Scaffold Templates",
         "when": "editorLangId == fsharp"
       },
       {
-        "command": "extension.scaffoldApplicationComponents",
+        "command": "fable-elmish-scaffolder.scaffoldApplicationComponents",
         "title": "Scaffold Fable-Elmish Application Components",
         "when": "editorLangId == fsharp"
       },
       {
-        "command": "extension.exportSettings",
+        "command": "fable-elmish-scaffolder.exportSettings",
         "title": "Export Fable-Elmish Scaffold Settings",
         "when": "editorLangId == fsharp"
       }

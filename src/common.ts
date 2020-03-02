@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as handlebars from 'handlebars';
 import * as vscode from 'vscode';
 import { window } from 'vscode';
-import { getDefaultSettings } from 'http2';
 
 export const getRootFolder = () => window.activeTextEditor ? path.dirname(window.activeTextEditor?.document.fileName) : vscode.workspace.rootPath!;
 
@@ -11,10 +10,16 @@ export enum AsyncStyleEnum { Async = "async", Promise = "promise" }
 
 export interface ISettings {
   asyncStyle: AsyncStyleEnum
+  entityIdType: string
+  userIdType: string
 }
 
 export const defaultSettings = () => {
-  return { asyncStyle: AsyncStyleEnum.Async };
+  return {
+    asyncStyle: AsyncStyleEnum.Async,
+    entityIdType: "int" ,
+    userIdType: "string"
+  };
 }
 
 export const settingsFilename = ".elmish-scaffold-settings";
@@ -43,7 +48,21 @@ export const getSettings = (): ISettings => {
       if (asyncStyle) {
         if (asyncStyle === "async") result.asyncStyle = AsyncStyleEnum.Async;
         else if (asyncStyle === "promise") result.asyncStyle = AsyncStyleEnum.Promise;
-        else window.showWarningMessage("Invalid setting for asyncStyle - must be async or promise")
+        else window.showWarningMessage("Invalid setting for asyncStyle - must be async or promise, using default async")
+      }
+      const entityIdType = candidateSettings["entityIdType"];
+      if (entityIdType) {
+        if (entityIdType === "int") result.entityIdType = "int"
+        else if (entityIdType === "string") result.entityIdType = "string"
+        else window.showWarningMessage("Invalid setting for entityIdType - must be string or int, using default int")
+        result.entityIdType = entityIdType;
+      }
+      const userIdType = candidateSettings["userIdType"]
+      if (userIdType) {
+        if (userIdType === "int") result.userIdType = "int"
+        else if (userIdType === "string") result.userIdType = "string"
+        else window.showWarningMessage("Invalid setting for userIdType - must be string or int, using default int")
+        result.userIdType = userIdType;
       }
     }
   }

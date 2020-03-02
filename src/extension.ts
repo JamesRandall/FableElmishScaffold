@@ -11,10 +11,10 @@ import * as handlebars from 'handlebars';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {  
-  let ejectScaffoldTemplatesDisposer = vscode.commands.registerCommand('extension.ejectScaffoldTemplates', () => ejectScaffoldTemplates.command(context));
-  let generateFullScaffoldDisposer = vscode.commands.registerCommand('extension.generateFullScaffold', () => generateFullScaffold.command(context));
-  let scaffoldApplicationComponentsDisposer = vscode.commands.registerCommand('extension.scaffoldApplicationComponents', () => scaffoldApplicationComponents.command(context));
-  let exportSettingsDisposer = vscode.commands.registerCommand('extension.exportSettings', () => exportSettings.command(context));
+  let ejectScaffoldTemplatesDisposer = vscode.commands.registerCommand('fable-elmish-scaffolder.extension.ejectScaffoldTemplates', () => ejectScaffoldTemplates.command(context));
+  let generateFullScaffoldDisposer = vscode.commands.registerCommand('fable-elmish-scaffolder.generateFullScaffold', () => generateFullScaffold.command(context));
+  let scaffoldApplicationComponentsDisposer = vscode.commands.registerCommand('fable-elmish-scaffolder.scaffoldApplicationComponents', () => scaffoldApplicationComponents.command(context));
+  let exportSettingsDisposer = vscode.commands.registerCommand('fable-elmish-scaffolder.exportSettings', () => exportSettings.command(context));
 
   context.subscriptions.push(generateFullScaffoldDisposer);
   context.subscriptions.push(ejectScaffoldTemplatesDisposer);
@@ -35,6 +35,9 @@ export function activate(context: vscode.ExtensionContext) {
   });
   handlebars.registerHelper('asyncSleep', function (settings:ISettings) {
     return settings.asyncStyle === AsyncStyleEnum.Promise ? 'Promise.sleep' : 'Async.Sleep';
+  });
+  handlebars.registerHelper('routerIdType', function(settings: ISettings) {
+    return settings.entityIdType === 'string' ? 'str' : 'i32';
   });
 }
 

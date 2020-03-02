@@ -8,16 +8,19 @@ open Browser
 open Types
 
 let root context model dispatch =
-    div [] [
-      h1 [] [str "Create New {{{entityName}}}"]
-      p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]
-      table [] [
-        tbody [] [
-          tr [] [
-            th [] [str "Value"]
-            td [] [input [Value model.AProperty ; OnChange (fun ev -> ev.Value |> ChangeAProperty |> dispatch)]]
+    match model.IsSaving with
+    | true -> div[] [str "Save in progress..."]
+    | false ->
+      div [] [
+        h1 [] [str "Create New {{{entityName}}}"]
+        p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]
+        table [] [
+          tbody [] [
+            tr [] [
+              th [] [str "Value"]
+              td [] [input [Value model.Item.AProperty ; OnChange (fun ev -> ev.Value |> ChangeAProperty |> dispatch)]]
+            ]
           ]
         ]
+        button [OnClick (fun _ -> console.log("Submitting with property value " + model.Item.AProperty) ; Submit{{{entityName}}} |> dispatch)] [str "Submit"]
       ]
-      button [OnClick (fun _ -> console.log("Submitting with property value " + model.AProperty) ; Submit |> dispatch)] [str "Submit"]
-    ]

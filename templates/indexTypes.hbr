@@ -1,16 +1,18 @@
 module {{{rootNamespace}}}.Index.Types
 
 type Item =
-  { Id: int
+  { Id: {{{settings.entityIdType}}}
     Title: string
   }
 
 type Model =
   { Items: Item list
+    IsLoading: bool
   }
 
   static member Empty =
     { Items = []
+      IsLoading = true
     }
 
 type Get{{{entityName}}}sRes =
