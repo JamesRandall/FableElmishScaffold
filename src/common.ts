@@ -3,8 +3,53 @@ import * as path from 'path';
 import * as handlebars from 'handlebars';
 import * as vscode from 'vscode';
 import { window } from 'vscode';
+import { getDefaultSettings } from 'http2';
 
 export const getRootFolder = () => window.activeTextEditor ? path.dirname(window.activeTextEditor?.document.fileName) : vscode.workspace.rootPath!;
+
+export enum AsyncStyleEnum { Async = "async", Promise = "promise" }
+
+export interface ISettings {
+  asyncStyle: AsyncStyleEnum
+}
+
+export const defaultSettings = () => {
+  return { asyncStyle: AsyncStyleEnum.Async };
+}
+
+export const settingsFilename = ".elmish-scaffold-settings";
+
+export const getSettings = (): ISettings => {
+  const result = defaultSettings();
+  let settingsPath = undefined;
+  let searchPath = getRootFolder();
+  let searching = true;
+  while (searching) {
+    const files = fs.readdirSync(searchPath);
+    const foundFile = files.find(f => path.basename(f.toLowerCase()) === settingsFilename);
+    if (foundFile) {
+      settingsPath = path.join(searchPath, foundFile);
+    }
+    if (settingsPath || (!settingsPath && searchPath.length <= 1)) {
+      searching = false;
+    } else {
+      searchPath = path.join(searchPath, '..');
+    }    
+  }
+  if (settingsPath) {
+    const candidateSettings = JSON.parse(fs.readFileSync(settingsPath).toString());
+    if (candidateSettings) {
+      const asyncStyle = candidateSettings["asyncStyle"];
+      if (asyncStyle) {
+        if (asyncStyle === "async") result.asyncStyle = AsyncStyleEnum.Async;
+        else if (asyncStyle === "promise") result.asyncStyle = AsyncStyleEnum.Promise;
+        else window.showWarningMessage("Invalid setting for asyncStyle - must be async or promise")
+      }
+    }
+  }
+  
+  return result;
+}
 
 // dispatcher must come at the end
 export const operations = [ 'index', 'show', 'create', 'update', 'dispatcher' ];

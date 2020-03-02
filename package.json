@@ -2,7 +2,7 @@
 	"name": "fable-elmish-generator",
 	"displayName": "Fable Elmish Scaffolder",
 	"description": "Scaffolds boilerplate for a typical Fable Elmish application",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "preview": true,
   "publisher": "jamesrandall",
   "repository": "https://github.com/JamesRandall/FableElmishScaffold",
@@ -17,7 +17,8 @@
 	"activationEvents": [
     "onCommand:extension.generateFullScaffold",
     "onCommand:extension.ejectScaffoldTemplates",
-    "onCommand:extension.scaffoldApplicationComponents"
+    "onCommand:extension.scaffoldApplicationComponents",
+    "onCommand:extension.exportSettings"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -35,7 +36,12 @@
       {
         "command": "extension.scaffoldApplicationComponents",
         "title": "Scaffold Fable-Elmish Application Components",
-        "when": "editorLandId == fsharp"
+        "when": "editorLangId == fsharp"
+      },
+      {
+        "command": "extension.exportSettings",
+        "title": "Export Fable-Elmish Scaffold Settings",
+        "when": "editorLangId == fsharp"
       }
 		]
 	},

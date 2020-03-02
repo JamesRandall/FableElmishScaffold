@@ -4,9 +4,7 @@ import * as vscode from 'vscode';
 import * as helpers from './common';
 
 export const command = async (context: vscode.ExtensionContext) => {
-  const fsProj = helpers.locateFsproject(helpers.getRootFolder());
-  if (!fsProj) return;
-  const destPath = path.join(path.dirname(fsProj), ".fable-elmish-templates");
+  const destPath = path.join(helpers.getRootFolder(), ".fable-elmish-templates");
   if (fs.existsSync(destPath))
   {
     const result = helpers.showYesNo("Overwrite existing ejected templates?");

@@ -6,7 +6,9 @@ This extension can help with the scaffolding out of applications based on Fable 
 
 ## Features
 
-* Scaffold out a basic Fable application
+* Scaffold out a basic Fable-Elmish application
+* Use custom templates for code generation
+* Support for either promise or async blocks
 
 ## How to Use
 
@@ -25,7 +27,29 @@ Now to add a resource, for example routes to create, list, view and edit a Produ
 
 This will create the resource, routing for it, boilerplate views, and Elmish message patterns.
 
+## Settings
+
+Settings are maintained in a file called .elmish-scaffold-settings which will be located by walking up the folder structure from the location in which you run a command. You can export a settings file at the current location by running the command _Export Fable-Elmish Scaffold Settings_ which will create a .elmish-scaffold-settings file with the default values.
+
+Setings are described below:
+
+|Setting|Default|Description|
+|-------|-------|-----------|
+|asyncStyle|async|Possible values are async or promise and this causes the scaffolder to generate async or promise blocks as appropriate|
+
+## Customising the Generated Code
+
+The scaffolder makes use of a set of Handlelbars templates. If you want to customise the generated code you can "eject" the shipped templates and modify them.
+
+To do this run the command _Eject Fable-Elmish Scaffold Templates_. This will place the templates in a folder called .fable-elmish-templates at the current location.
+
+When generating code the scaffolder will walk back up the folder tree from the location you are inserting the code and look for this folder. If it finds it it will use your custom templates, if it doesn't it will use the defaults. This allows you to use different templates in different parts of a solution.
+
 ## Release Notes
+
+### 0.0.4
+
+* Added settings support and documentation
 
 ### 0.0.3
 

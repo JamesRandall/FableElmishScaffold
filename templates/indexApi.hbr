@@ -3,10 +3,10 @@ module {{{rootNamespace}}}.Index.Api
 open Types
 
 let get{{{entityName}}}s context =
-  promise {
+  {{asyncBlock settings}} {
     let result = [{ Id = 1 ; Title = "Some item" }]
 
-    do! Promise.sleep 500
+    do! {{asyncSleep settings}} 500
 
     return Get{{{entityName}}}sRes.Success result
   }

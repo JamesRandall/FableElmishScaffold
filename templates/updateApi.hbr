@@ -3,10 +3,10 @@ module {{{rootNamespace}}}.Update.Api
 open Types
 
 let get{{{entityName}}} context =
-  promise {
+  {{asyncBlock settings}} {
     let result = { Id = 1 ; AProperty = "Some item" }
 
-    do! Promise.sleep 500
+    do! {{asyncSleep settings}} 500
 
     return Get{{{entityName}}}Res.Success result
   }

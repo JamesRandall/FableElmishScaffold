@@ -10,7 +10,7 @@ let init () =
 let update context msg model =
   match msg with
   | Get{{{entityName}}}s ->
-      model, Cmd.OfPromise.either Api.get{{{entityName}}}s context Get{{{entityName}}}sResult (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
+      model, Cmd.{{ofCmd settings}}.either Api.get{{{entityName}}}s context Get{{{entityName}}}sResult (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
   
   | Get{{{entityName}}}sResult result ->
       match result with

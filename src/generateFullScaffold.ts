@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import { window } from 'vscode';
 import * as handlebars from 'handlebars';
 
-import { locateFsproject, getRootFolder, operations, showYesNo, getTemplateRootPath, addToFsProjAfterRouter } from './common';
+import { locateFsproject, getRootFolder, operations, showYesNo, getTemplateRootPath, addToFsProjAfterRouter, ISettings, getSettings } from './common';
 
 interface IOperations {
   [key: string]: HandlebarsTemplateDelegate<any> | undefined
@@ -46,6 +46,8 @@ interface ITemplateProperties {
   hasShow: boolean
   hasUpdate: boolean
   hasCreate: boolean
+
+  settings: ISettings
 }
 
 const showInputBox = async () => {
@@ -150,7 +152,9 @@ const updateRouterIfExists = async (context: vscode.ExtensionContext, templates:
     hasIndex: activeOperations.indexOf('index') > -1,
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
-    hasCreate: activeOperations.indexOf('create') > -1
+    hasCreate: activeOperations.indexOf('create') > -1,
+
+    settings: getSettings()
   };
 
   const subPage = templates._routerSubPage(properties);
@@ -194,7 +198,9 @@ const updateAppIfExists = async (context: vscode.ExtensionContext, templates: IT
     hasIndex: activeOperations.indexOf('index') > -1,
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
-    hasCreate: activeOperations.indexOf('create') > -1
+    hasCreate: activeOperations.indexOf('create') > -1,
+
+    settings: getSettings()
   };
 
   const appRender = templates._appRender(properties);
@@ -248,7 +254,9 @@ export const command = async (context: vscode.ExtensionContext) => {
       hasIndex: activeOperations.indexOf('index') > -1,
       hasShow: activeOperations.indexOf('show') > -1,
       hasUpdate: activeOperations.indexOf('update') > -1,
-      hasCreate: activeOperations.indexOf('create') > -1
+      hasCreate: activeOperations.indexOf('create') > -1,
+      
+      settings: getSettings()
     };
 
     // order is important here - has to be types, api, state, view
