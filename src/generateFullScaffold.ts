@@ -10,7 +10,7 @@ interface IOperations {
   [key: string]: HandlebarsTemplateDelegate<any> | undefined
 
   types?: HandlebarsTemplateDelegate<any> | undefined
-  rest?: HandlebarsTemplateDelegate<any> | undefined
+  api?: HandlebarsTemplateDelegate<any> | undefined
   state?: HandlebarsTemplateDelegate<any> | undefined
   view?: HandlebarsTemplateDelegate<any> | undefined
 }
@@ -95,12 +95,12 @@ const loadTemplates = (context: vscode.ExtensionContext): ITemplates => {
 
   operations.forEach(operation => {
     const typesPath = path.join(templatesRootPath, `${operation}Types.hbr`);
-    const restPath = path.join(templatesRootPath, `${operation}Rest.hbr`);
+    const apiPath = path.join(templatesRootPath, `${operation}Api.hbr`);
     const statePath = path.join(templatesRootPath, `${operation}State.hbr`);
     const viewPath = path.join(templatesRootPath, `${operation}View.hbr`);
     result[operation] = {
       types: handlebars.compile(fs.readFileSync(typesPath).toString()),
-      rest: fs.existsSync(restPath) ? handlebars.compile(fs.readFileSync(restPath).toString()) : undefined,
+      api: fs.existsSync(apiPath) ? handlebars.compile(fs.readFileSync(apiPath).toString()) : undefined,
       state: handlebars.compile(fs.readFileSync(statePath).toString()),
       view: handlebars.compile(fs.readFileSync(viewPath).toString())
     }
@@ -251,7 +251,7 @@ export const command = async (context: vscode.ExtensionContext) => {
       hasCreate: activeOperations.indexOf('create') > -1
     };
 
-    // order is important here - has to be types, rest, state, view
+    // order is important here - has to be types, api, state, view
     // we need to push to itemGroupContent in this order so that 
     if (templateSet.types) {
       const typeFs = templateSet.types(properties);
@@ -262,12 +262,12 @@ export const command = async (context: vscode.ExtensionContext) => {
       }
     }
 
-    if (templateSet.rest) {
-      const restFs = templateSet.rest(properties);
-      const restFsPath = path.join(operationFolder, "Rest.fs");
-      fs.writeFileSync(restFsPath, restFs);
+    if (templateSet.api) {
+      const apiFs = templateSet.api(properties);
+      const apiFsPath = path.join(operationFolder, "Api.fs");
+      fs.writeFileSync(apiFsPath, apiFs);
       if (fsProj) {
-        itemGroupContent.push(path.relative(path.dirname(fsProj), restFsPath));
+        itemGroupContent.push(path.relative(path.dirname(fsProj), apiFsPath));
       }
     }
 

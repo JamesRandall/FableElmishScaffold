@@ -7,10 +7,10 @@ open Browser
 let init () =
   Model.Empty, Cmd.OfFunc.result Get{{{entityName}}}s
 
-let update user msg model =
+let update context msg model =
   match msg with
   | Get{{{entityName}}}s ->
-      model, Cmd.OfPromise.either Rest.get{{{entityName}}}s user Get{{{entityName}}}sResult (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
+      model, Cmd.OfPromise.either Api.get{{{entityName}}}s context Get{{{entityName}}}sResult (Get{{{entityName}}}sRes.Error >> Get{{{entityName}}}sResult)
   
   | Get{{{entityName}}}sResult result ->
       match result with

@@ -1,8 +1,8 @@
-module {{{rootNamespace}}}.Update.Rest
+module {{{rootNamespace}}}.Show.Api
 
 open Types
 
-let get{{{entityName}}} user =
+let get{{{entityName}}} context =
   promise {
     let result = { Id = 1 ; AProperty = "Some item" }
 

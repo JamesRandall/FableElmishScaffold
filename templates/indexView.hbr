@@ -7,7 +7,7 @@ open Fable.React.Props
 
 open Types
 
-let root user model dispatch =
+let root context model dispatch =
     div [] [
       h1 [] [str "{{{entityName}}} View"]
       p [] [

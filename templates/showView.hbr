@@ -7,7 +7,7 @@ open Fable.React.Props
 
 open Types
 
-let root user model dispatch =
+let root context model dispatch =
     div [] [
       h1 [] [str "Product View"]
       p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]

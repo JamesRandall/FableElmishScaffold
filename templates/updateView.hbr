@@ -8,7 +8,7 @@ open Browser
 
 open Types
 
-let root user model dispatch =
+let root context model dispatch =
     div [] [
       h1 [] [str "Update {{{entityName}}}"]
       p [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Index)] [str "Back"]]

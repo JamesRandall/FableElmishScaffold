@@ -1,5 +1,5 @@
   | ({{{entityName}}}DispatcherMsg msg, { {{{entityName}}}Dispatcher = Some extractedModel }) ->
-    let (subModel, subCmd) = {{{entityName}}}.Dispatcher.State.update model.Session msg extractedModel
+    let (subModel, subCmd) = {{{entityName}}}.Dispatcher.State.update model.Context msg extractedModel
     { model with {{{entityName}}}Dispatcher = Some subModel}, Cmd.map {{{entityName}}}DispatcherMsg subCmd
 
   | ({{{entityName}}}DispatcherMsg msg, _) ->

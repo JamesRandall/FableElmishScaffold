@@ -6,7 +6,7 @@ open Types
 let init () =
   Model.Empty, Cmd.none
 
-let update user msg model =
+let update context msg model =
   match msg with
   | ChangeAProperty newValue -> { model with AProperty = newValue }, Cmd.none
   | Submit -> model, Cmd.none

@@ -5,19 +5,19 @@ open Fable.React
 open Fable.React.Props
 open Browser
 
-let root user model dispatch =
+let root context model dispatch =
   match model with
   {{#if hasIndex}}| { CurrentPage = Router.{{{entityName}}}Page.Index ; IndexModel = Some extractedModel } ->
-      {{{entityName}}}.Index.View.root user extractedModel (IndexMsg >> dispatch)
+      {{{entityName}}}.Index.View.root context extractedModel (IndexMsg >> dispatch)
   {{/if}}
   {{#if hasShow}}| { CurrentPage = Router.{{{entityName}}}Page.Show _ ; ShowModel = Some extractedModel } ->
-      {{{entityName}}}.Show.View.root user extractedModel (ShowMsg >> dispatch)
+      {{{entityName}}}.Show.View.root context extractedModel (ShowMsg >> dispatch)
   {{/if}}
   {{#if hasCreate}}| { CurrentPage = Router.{{{entityName}}}Page.Create ; CreateModel = Some extractedModel } ->
-      {{{entityName}}}.Create.View.root user extractedModel (CreateMsg >> dispatch)
+      {{{entityName}}}.Create.View.root context extractedModel (CreateMsg >> dispatch)
   {{/if}}
   {{#if hasUpdate}}| { CurrentPage = Router.{{{entityName}}}Page.Update _ ; UpdateModel = Some extractedModel } ->
-      {{{entityName}}}.Update.View.root user extractedModel (UpdateMsg >> dispatch)
+      {{{entityName}}}.Update.View.root context extractedModel (UpdateMsg >> dispatch)
   {{/if}}
   | _ ->
     console.log ("[{{{entityName}}}.Dispatcher.View] Page not found")

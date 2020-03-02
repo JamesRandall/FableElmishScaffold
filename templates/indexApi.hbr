@@ -1,8 +1,8 @@
-module {{{rootNamespace}}}.Index.Rest
+module {{{rootNamespace}}}.Index.Api
 
 open Types
 
-let get{{{entityName}}}s user =
+let get{{{entityName}}}s context =
   promise {
     let result = [{ Id = 1 ; Title = "Some item" }]
 

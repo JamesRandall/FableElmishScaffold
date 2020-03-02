@@ -27,6 +27,15 @@ This will create the resource, routing for it, boilerplate views, and Elmish mes
 
 ## Release Notes
 
+### 0.0.3
+
+* Renamed the Rest templates and modules to Api to be a little more agnostic of implementation (for example Fable.Remoting)
+* Renamed the session type to be called context and changed the parameter name on updaters from user to context (to better reflect its purpose)
+
+### 0.0.2
+
+* Added a logo
+
 ### 0.0.1
 
 * Initial release

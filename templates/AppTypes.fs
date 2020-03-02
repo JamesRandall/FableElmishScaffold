@@ -1,20 +1,20 @@
 module App.Types
 
-type Session =
+type Context =
   {
     UserId : int
   }
 
 type Model =
   { CurrentPage : Router.Page
-    Session: Session option
+    Context: Context option
     // begin dispatcher models - do not remove
     // end dispatcher models - do not remove
   }
 
   static member Empty =
     { CurrentPage = Router.Home
-      Session = None
+      Context = None
       // begin dispatcher model initialisation - do not remove
       // end dispatcher model initialisation - do not remove
     }
