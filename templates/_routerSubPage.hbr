@@ -1,5 +1,5 @@
 type {{{entityName}}}Page =
   {{#if hasIndex}}| Index{{/if}}
-  {{#if hasShow}}| Show of int{{/if}}
+  {{#if hasShow}}| Show of {{{settings.entityIdType}}}{{/if}}
   {{#if hasCreate}}| Create{{/if}}
-  {{#if hasUpdate}}| Update of int{{/if}}
+  {{#if hasUpdate}}| Update of {{{settings.entityIdType}}}{{/if}}

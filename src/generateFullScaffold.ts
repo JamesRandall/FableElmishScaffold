@@ -46,6 +46,7 @@ interface ITemplateProperties {
   hasShow: boolean
   hasUpdate: boolean
   hasCreate: boolean
+  defaultId: string
 
   settings: ISettings
 }
@@ -132,6 +133,8 @@ const writeAndInsertAsset= async (path:string, marker: string, content:string) =
   await doc.save();
 }
 
+const getDefaultId = (settings:ISettings) => settings.entityIdType === "int" ? '1' : '"1"';
+
 const updateRouterIfExists = async (context: vscode.ExtensionContext, templates: ITemplates, entityName: string, activeOperations: string[]) => {
   const fsProj = locateFsproject(getRootFolder());
   if (!fsProj) {
@@ -144,6 +147,8 @@ const updateRouterIfExists = async (context: vscode.ExtensionContext, templates:
     return;
   }
   
+  const settings = getSettings()
+
   const properties: ITemplateProperties = {
     rootNamespace: entityName,
     operation: "router",
@@ -153,8 +158,9 @@ const updateRouterIfExists = async (context: vscode.ExtensionContext, templates:
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
     hasCreate: activeOperations.indexOf('create') > -1,
+    defaultId: getDefaultId(settings),
 
-    settings: getSettings()
+    settings: settings
   };
 
   const subPage = templates._routerSubPage(properties);
@@ -190,6 +196,7 @@ const updateAppIfExists = async (context: vscode.ExtensionContext, templates: IT
     return;
   }
   
+  const settings = getSettings();
   const properties: ITemplateProperties = {
     rootNamespace: entityName,
     operation: "app",
@@ -199,8 +206,9 @@ const updateAppIfExists = async (context: vscode.ExtensionContext, templates: IT
     hasShow: activeOperations.indexOf('show') > -1,
     hasUpdate: activeOperations.indexOf('update') > -1,
     hasCreate: activeOperations.indexOf('create') > -1,
+    defaultId: getDefaultId(settings),
 
-    settings: getSettings()
+    settings: settings
   };
 
   const appRender = templates._appRender(properties);
@@ -246,6 +254,7 @@ export const command = async (context: vscode.ExtensionContext) => {
     const operationAsPath = operation[0].toUpperCase() + operation.substring(1);
     const operationFolder = path.join(areaFolder, operationAsPath);
     fs.mkdirSync(operationFolder);
+    const settings = getSettings();
     const properties: ITemplateProperties = {
       rootNamespace: entityName,
       operation: operation,
@@ -255,8 +264,9 @@ export const command = async (context: vscode.ExtensionContext) => {
       hasShow: activeOperations.indexOf('show') > -1,
       hasUpdate: activeOperations.indexOf('update') > -1,
       hasCreate: activeOperations.indexOf('create') > -1,
+      defaultId: getDefaultId(settings),
       
-      settings: getSettings()
+      settings: settings
     };
 
     // order is important here - has to be types, api, state, view

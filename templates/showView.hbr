@@ -18,7 +18,7 @@ let root context model dispatch =
         tbody [] [
           tr [] [
             th [] [str "Id"]
-            td [] [str (sprintf "%o" model.Item.Id)]            
+            td [] [str (box(model.Item.Id).ToString())]
           ]
           tr [] [
             th [] [str "Value"]

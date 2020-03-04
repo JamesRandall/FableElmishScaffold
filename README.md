@@ -29,7 +29,7 @@ This will create the resource, routing for it, boilerplate views, and Elmish mes
 
 ## Settings
 
-Settings are maintained in a file called .elmish-scaffold-settings which will be located by walking up the folder structure from the location in which you run a command. You can export a settings file at the current location by running the command _Export Fable-Elmish Scaffold Settings_ which will create a .elmish-scaffold-settings file with the default values.
+Settings are maintained in a file called .elmish-scaffold-settings which will be located by walking up the folder structure from the location in which you run a command enabling you to have multiple settings in a solution. You can export a settings file at the current location by running the command _Export Fable-Elmish Scaffold Settings_ which will create a .elmish-scaffold-settings file with the default values.
 
 Setings are described below:
 
@@ -38,6 +38,7 @@ Setings are described below:
 |asyncStyle|async|Possible values are async or promise and this causes the scaffolder to generate async or promise blocks as appropriate|
 |entityIdType|int|The type to use for entity ID properties in the scaffolded code. Can be int or string.|
 |userIdType|string|The type to use for user ID properties in the scaffolded code. Can be int or string.|
+|routerIdType|string|The type to use for parsing router pages. Can be i32 or str.|
 
 ## Customising the Generated Code
 
@@ -48,6 +49,13 @@ To do this run the command _Eject Fable-Elmish Scaffold Templates_. This will pl
 When generating code the scaffolder will walk back up the folder tree from the location you are inserting the code and look for this folder. If it finds it it will use your custom templates, if it doesn't it will use the defaults. This allows you to use different templates in different parts of a solution.
 
 ## Release Notes
+
+### 0.0.6
+
+* Changed router matching order to account for string based ids (the show path could conflict with the create path)
+* Fixes issue with router output - ID types were not being honoured
+* Router parse type (i32 or str) can now be configured in settings
+* Defaults now base on types (to an extent)
 
 ### 0.0.5
 

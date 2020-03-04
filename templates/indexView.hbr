@@ -29,7 +29,7 @@ let root context model dispatch =
           tr [] [
             td [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Show i.Id)] [str "View"]]
             td [] [a [Router.href (Router.{{{entityName}}} <| Router.{{{entityName}}}Page.Update i.Id)] [str "Edit"]]
-            td [] [str (sprintf "%o" i.Id)]
+            td [] [str (box(i.Id).ToString())]
             td [] [str i.Title]
           ])
         )

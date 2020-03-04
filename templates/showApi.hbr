@@ -4,7 +4,7 @@ open Types
 
 let get{{{entityName}}} context =
   {{asyncBlock settings}} {
-    let result = { Id = 1 ; AProperty = "Some item" }
+    let result = { Id = {{{defaultId}}} ; AProperty = "Some item" }
 
     do! {{asyncSleep settings}} 500
 

@@ -12,13 +12,15 @@ export interface ISettings {
   asyncStyle: AsyncStyleEnum
   entityIdType: string
   userIdType: string
+  routerIdType: string
 }
 
 export const defaultSettings = () => {
   return {
     asyncStyle: AsyncStyleEnum.Async,
     entityIdType: "int" ,
-    userIdType: "string"
+    userIdType: "string",
+    routerIdType: "i32"
   };
 }
 
@@ -48,21 +50,24 @@ export const getSettings = (): ISettings => {
       if (asyncStyle) {
         if (asyncStyle === "async") result.asyncStyle = AsyncStyleEnum.Async;
         else if (asyncStyle === "promise") result.asyncStyle = AsyncStyleEnum.Promise;
-        else window.showWarningMessage("Invalid setting for asyncStyle - must be async or promise, using default async")
+        else window.showWarningMessage("Invalid setting for asyncStyle - must be async or promise, using default async");
       }
       const entityIdType = candidateSettings["entityIdType"];
       if (entityIdType) {
-        if (entityIdType === "int") result.entityIdType = "int"
-        else if (entityIdType === "string") result.entityIdType = "string"
-        else window.showWarningMessage("Invalid setting for entityIdType - must be string or int, using default int")
         result.entityIdType = entityIdType;
       }
-      const userIdType = candidateSettings["userIdType"]
+      const userIdType = candidateSettings["userIdType"];
       if (userIdType) {
         if (userIdType === "int") result.userIdType = "int"
         else if (userIdType === "string") result.userIdType = "string"
-        else window.showWarningMessage("Invalid setting for userIdType - must be string or int, using default int")
+        else window.showWarningMessage("Invalid setting for userIdType - must be string or int, using default int");
         result.userIdType = userIdType;
+      }
+      const routerIdType = candidateSettings["routerIdType"];
+      if (routerIdType) {
+        if (routerIdType === "i32") result.routerIdType = "i32"
+        else if (routerIdType === "str") result.routerIdType = "str"
+        else window.showWarningMessage("Invalid setting  for routerIdType - must be str or i32, using default i32");
       }
     }
   }
