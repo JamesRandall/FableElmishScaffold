@@ -107,7 +107,7 @@ export async function showYesNo(placeholder: string) {
     placeHolder: placeholder
   });
 
-  return result === undefined ? undefined : result?.toLowerCase() === 'no';
+  return result === undefined ? undefined : result?.toLowerCase() === 'yes';
 }
 
 export const getTemplateRootPath = (context: vscode.ExtensionContext) => {

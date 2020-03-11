@@ -2,7 +2,7 @@
 	"name": "fable-elmish-generator",
 	"displayName": "Fable Elmish Scaffolder",
 	"description": "Scaffolds boilerplate for a typical Fable Elmish application",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "preview": true,
   "publisher": "jamesrandall",
   "repository": "https://github.com/JamesRandall/FableElmishScaffold",

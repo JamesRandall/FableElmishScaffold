@@ -240,9 +240,16 @@ export const command = async (context: vscode.ExtensionContext) => {
   if (!entityName) return;
 
   for (let operationIndex = 0; operationIndex < operations.length; operationIndex++) {
-    const includeOperation = await showYesNo(`Scaffold ${operations[operationIndex]}`);
-    if (includeOperation === undefined) return; // cancelled
-    activeOperations.push(operations[operationIndex]);
+    const op = operations[operationIndex];
+    if (op === 'dispatcher') {
+      activeOperations.push(operations[operationIndex]);
+    } else {
+      const includeOperation = await showYesNo(`Scaffold ${op}`);
+      if (includeOperation === undefined) return; // cancelled
+      if (includeOperation === true) {
+        activeOperations.push(operations[operationIndex]);
+      }
+    }
   }
 
   const areaFolder = path.join(rootFolder, entityName);
